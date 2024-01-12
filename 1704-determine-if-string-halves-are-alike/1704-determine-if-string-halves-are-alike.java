@@ -1,29 +1,27 @@
 class Solution {
 
-    private static final String[] VOWELS = {"a", "e", "i", "o", "u", "A", "E", "I", "O", "U"};
+    private static final Set<Character> VOWELS = new HashSet<>(Set.of('a', 'e', 'i', 'o', 'u'));
 
     public boolean halvesAreAlike(String s) {
-        String[] splitStr = s.split("");
+        char[] chars = s.toCharArray();
 
         int count = s.length();
         int mid = count / 2;
 
-        int frontCount = countVowels(splitStr, 0, mid);
-        int rearCount = countVowels(splitStr, mid, count);
+        int frontCount = countVowels(chars, 0, mid);
+        int rearCount = countVowels(chars, mid, count);
 
         return frontCount == rearCount;
     }
 
-    private int countVowels(String[] str, int start, int end) {
+    private int countVowels(char[] chars, int start, int end) {
         int cnt = 0;
         for (int i = start; i < end; i++) {
-            for (String vowel : VOWELS) {
-                if (str[i].equals(vowel)) {
-                    cnt++;
-                    break;  // Break once a vowel is found in the inner loop
-                }
+            if (VOWELS.contains(Character.toLowerCase(chars[i]))) {
+                cnt++;
             }
         }
         return cnt;
     }
 }
+
